@@ -38,10 +38,11 @@ unity/Build/USV_Harbor.x86_64
 checkpoints/sgnav_task1_magenta_ball.pt
 ```
 
-If the Unity build is distributed separately, download `unity_harbor_build_linux.zip` from the GitHub Release page and unzip it into the repository root before running the demo:
+If the Unity build is distributed separately, download `unity_harbor_build_linux.tar.xz` from the GitHub Release page and extract it into the repository root before running the demo:
 
 ```bash
-unzip unity_harbor_build_linux.zip
+wget https://github.com/linyqyq/sgnav-minimal-release/releases/download/v0.1.0/unity_harbor_build_linux.tar.xz
+tar -xJf unity_harbor_build_linux.tar.xz
 chmod +x unity/Build/USV_Harbor.x86_64
 ```
 
