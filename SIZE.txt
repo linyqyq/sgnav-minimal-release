@@ -1,1 +1,3 @@
-378M	public_release
+Tracked Git repository payload: approximately 1.9M, excluding .git metadata.
+Unity build release asset: unity_harbor_build_linux.zip, approximately 114M.
+The local unity/Build directory is ignored by git and should be distributed through GitHub Releases.
