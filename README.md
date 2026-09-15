@@ -21,8 +21,12 @@ This release includes one representative Unity scene, a trained checkpoint, eval
 ### Overall Architecture
 
 <p align="center">
-  <a href="https://github.com/user-attachments/files/32235243/sgnav_overview.pdf">
-    <b>View SGNav Architecture (PDF)</b>
+  <a href="https://github.com/user-attachments/assets/009b67c3-766f-438e-8211-1b95c661c182">
+    <img
+      src="https://github.com/user-attachments/assets/009b67c3-766f-438e-8211-1b95c661c182"
+      width="620"
+      alt="SGNav Overall Architecture"
+    />
   </a>
 </p>
 
