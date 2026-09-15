@@ -1,75 +1,55 @@
-# SGNav Minimal Public Release
+# SGNav — Semantic-Guided USV Navigation
 
-This repository contains a compact release of SGNav for semantic-guided autonomous surface vehicle navigation. To keep the release lightweight, it includes one representative Unity harbour build, one Task-1 checkpoint, evaluation code, and runtime profiling scripts.
+[![arXiv](https://img.shields.io/badge/arXiv-2609.14558-b31b1b.svg)](https://arxiv.org/abs/2609.14558)
+[![DOI](https://img.shields.io/badge/DOI-10.48550%2FarXiv.2609.14558-blue)](https://doi.org/10.48550/arXiv.2609.14558)
 
-The full experimental workspace used for the paper contains additional scenes, checkpoints, and ablations. Those assets are not required for the minimal demo.
+A lightweight public release of **SGNav**, a semantic-guided navigation framework for autonomous surface vessels in simulated harbor environments.
 
-## Contents
+---
 
-- `python/`: SGNav policy, semantic target localizer, Unity ML-Agents wrapper, and runtime profiling code.
-- `checkpoints/sgnav_task1_magenta_ball.pt`: trained SGNav checkpoint for the representative Task-1 setting.
-- `unity/Build/`: pre-built Linux Unity harbour executable. The Unity Editor project is not included. For GitHub releases, the build can be distributed as a separate release asset instead of being committed to git.
-- `scripts/`: convenience commands for evaluation and runtime profiling.
-- `results/paper_tables/`: example runtime summaries produced from the profiling scripts.
+## Research Overview
 
-## Setup
+SGNav extends RL-based navigation with **semantic visual perception**, enabling the agent to identify language-specified targets and navigate toward them in visually complex environments.
 
-Create the conda environment:
+- **Task:** Semantic goal-directed USV navigation
+- **Perception:** GroundingDINO + CLIP-based semantic localization
+- **Control:** Learned navigation policy with visual/semantic guidance
+- **Environment:** Unity harbor simulation with representative Task-1 evaluation
+
+This release includes one representative Unity scene, a trained checkpoint, evaluation code, and runtime profiling tools.
+
+### Overall Architecture
+
+<p align="center">
+  <a href="https://github.com/user-attachments/files/32235243/sgnav_overview.pdf">
+    <b>View SGNav Architecture (PDF)</b>
+  </a>
+</p>
+
+The framework connects semantic perception, target localization, and policy-based navigation in a closed-loop agent pipeline.
+
+---
+
+## Representative Results
+
+Representative qualitative and quantitative results from the SGNav evaluation:
+
+<p align="center">
+  <img
+    src="https://github.com/user-attachments/assets/4bb8a481-2f05-45d3-a29f-c78cc334eb9b"
+    width="620"
+    alt="SGNav Representative Results"
+  />
+</p>
+
+For the complete experimental setup, ablations, and evaluation results, please refer to the paper.
+
+---
+
+## Quick Start
+
+### 1. Create the environment
 
 ```bash
 conda env create -f environment.yml
 conda activate usv-clip
-```
-
-The semantic perception module uses GroundingDINO through `transformers` and CLIP through `open_clip_torch`. The first run may download model weights from Hugging Face/OpenCLIP.
-
-## Quick Demo
-
-Run one Task-1 evaluation episode:
-
-```bash
-bash scripts/run_demo_task1.sh
-```
-
-The script uses:
-
-```text
-unity/Build/USV_Harbor.x86_64
-checkpoints/sgnav_task1_magenta_ball.pt
-```
-
-If the Unity build is distributed separately, download `unity_harbor_build_linux.tar.xz` from the GitHub Release page and extract it into the repository root before running the demo:
-
-```bash
-wget https://github.com/linyqyq/sgnav-minimal-release/releases/download/v0.1.0/unity_harbor_build_linux.tar.xz
-tar -xJf unity_harbor_build_linux.tar.xz
-chmod +x unity/Build/USV_Harbor.x86_64
-```
-
-If you run on a remote machine without a display, install and use `xvfb-run` or run with `--no-graphics`. Camera observations may be unreliable in Unity's null graphics mode, so a real or virtual display is recommended for visual perception experiments.
-
-## Runtime Profiling
-
-Run component-level profiling:
-
-```bash
-bash scripts/run_runtime_task1.sh
-```
-
-Outputs are written under:
-
-```text
-results/runtime/sgnav_runtime_task1/
-```
-
-The main files are:
-
-- `runtime_frames.csv`: per-frame timings.
-- `runtime_summary.csv`: amortized per-control-frame runtime.
-- `runtime_refresh_summary.csv`: semantic-refresh-only runtime.
-
-## Notes
-
-This release is intended for review-time reproducibility and demonstration. It provides a representative scene and checkpoint rather than the full set of paper assets.
-
-Unity build platform: Linux x86_64.
